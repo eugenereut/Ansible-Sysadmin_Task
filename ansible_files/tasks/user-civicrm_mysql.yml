@@ -1,0 +1,10 @@
+---
+# grant SELECT access for the CiviCRM adm user to all the CiviCRM tables
+- name: CiviCRM MySQL | Ensure MySQL users are present
+  mysql_user:
+      name: "{{ civicrm_vars.user }}"
+      append_privs: true
+      host: "%"
+      password: "{{ civicrm_vars.password }}"
+      priv: "{{ civicrm_vars.name }}.*:ALL"
+      state: present

@@ -1,0 +1,25 @@
+---
+- name: Frontend Server setup
+  hosts: remote_web
+  become: yes
+
+  vars_files:
+      - templates/mysql/servers.vars.yml
+
+  tasks:
+      - include: tasks/fe_hostname.yml
+      - include: tasks/timezone.yml
+      - include: tasks/sysctl.yml
+      - include: tasks/system_updates.yml
+      - include: tasks/system_utilities.yml
+      # uncomment fail2ban for remote VPS installs
+      #- include: tasks/fail2ban.yml
+      - include: tasks/ufw.yml
+      #- include: tasks/nginx.yml
+      - include: tasks/php.yml
+      - include: tasks/php_composer.yml
+      - include: tasks/mysql_client.yml
+      # - include: tasks/reboot.yml
+
+  handlers:
+      - include: handlers.yml

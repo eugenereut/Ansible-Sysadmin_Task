@@ -1,0 +1,32 @@
+---
+- name: Ensure directory exists for a Let's Encrypt Certificates
+  file:
+      path: /etc/letsencrypt/live/{{ servers_vars.frontend_hostname }}
+      state: directory
+
+# https://weakdh.org/  creates=/etc/ssl/certs/dhparam.pem
+- name: Generate dhparams file
+  command: openssl dhparam -out /etc/letsencrypt/live/{{ servers_vars.frontend_hostname }}/dhparam.pem 2048
+
+- name: Ensure python OpenSSL dependencies are installed.
+  pip:
+      name: pyOpenSSL
+      state: present
+
+- name: Generate an OpenSSL private key.
+  openssl_privatekey:
+      path: /etc/letsencrypt/live/{{ servers_vars.frontend_hostname }}/privkey.pem
+
+- name: Generate an OpenSSL CSR.
+  openssl_csr:
+      path: /etc/ssl/private/{{ servers_vars.frontend_hostname }}.csr
+      privatekey_path: /etc/letsencrypt/live/{{ servers_vars.frontend_hostname }}/privkey.pem
+      common_name: "{{ servers_vars.frontend_hostname }}"
+
+# provider: selfsigned
+- name: Generate a Self Signed OpenSSL certificate or Let's Encrypt Certificates.
+  openssl_certificate:
+      path: /etc/letsencrypt/live/{{ servers_vars.frontend_hostname }}/fullchain.pem
+      privatekey_path: /etc/letsencrypt/live/{{ servers_vars.frontend_hostname }}/privkey.pem
+      csr_path: /etc/ssl/private/{{ servers_vars.frontend_hostname }}.csr
+      provider: selfsigned

@@ -1,0 +1,15 @@
+---
+
+- name: Install system utilties
+  apt: pkg={{ item }} state=present
+  with_items:
+      - vim
+      - git
+      - curl
+      - unzip
+      - python-pip
+      - python3-mysqldb
+      - python-mysqldb
+      #- wget
+      # uncomment lxc for remote VPS installs
+      #-lxc

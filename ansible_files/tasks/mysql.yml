@@ -1,0 +1,14 @@
+---
+- name: Install MySQL
+  apt: pkg={{ item }} state=present
+  with_items:
+      - mysql-common
+      - mysql-server
+
+# If DBA dedicated then
+# comment bind-address 127.0.0.1
+# and make bind-address 0.0.0.0
+#- name: Add comment entries to mysqld.cnf file
+#  lineinfile: dest=/etc/mysql/mysql.conf.d/mysqld.cnf regexp="^bind-address" line="#bind-address" state=present
+#  notify:
+#      - restart mysql

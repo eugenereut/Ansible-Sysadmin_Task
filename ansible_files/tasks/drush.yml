@@ -1,0 +1,10 @@
+---
+- name: Install Drush.
+  get_url:
+      url: "{{ drupal_db.drush_phar_url }}"
+      dest: /usr/local/bin/drush
+
+- name: Ensure Drush is executable.
+  file:
+      path: /usr/local/bin/drush
+      mode: 0755

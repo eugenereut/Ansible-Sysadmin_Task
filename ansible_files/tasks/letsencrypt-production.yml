@@ -1,0 +1,30 @@
+---
+# Certbot Install and
+# Certbot Auto-Renewal
+# The certbot package takes care of Auto-Renewal by running ‘certbot renew’ twice a day via a systemd timer.
+# On non-systemd distributions this functionality is provided by a script placed in /etc/cron.d.
+# See /etc/cron.d
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - software-properties-common
+
+- name: Add certbot repository
+  apt_repository:
+      repo: 'ppa:certbot/certbot'
+      update_cache: true
+
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - python-certbot-nginx
+
+# https://weakdh.org/  creates=/etc/ssl/certs/dhparam.pem
+# dhparam.pem managed by Certbot now
+# If domain has www NS record please also add: -d www.domain.com
+- name: Generate dhparams file
+  command: certbot -n --agree-tos -m {{ servers_vars.admin_email }} --nginx -d {{ servers_vars.frontend_hostname }}

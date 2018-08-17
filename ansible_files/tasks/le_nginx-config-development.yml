@@ -1,0 +1,16 @@
+---
+- name: Disable nginx default site
+  file: path=/etc/nginx/sites-enabled/default state=absent
+
+- name: Remove nginx default site config
+  file: path=/etc/nginx/sites-available/default state=absent
+
+- name: Deploy nginx site config
+  template: src=templates/nginx-site-ssl_dev.conf.j2 dest=/etc/nginx/sites-available/{{ servers_vars.frontend_hostname }} owner=root
+  notify:
+      -  test nginx and reload
+
+- name: Activate nginx site
+  file: src=/etc/nginx/sites-available/{{ servers_vars.frontend_hostname }} dest=/etc/nginx/sites-enabled/{{ servers_vars.frontend_hostname }} state=link owner=root
+  notify:
+      -  test nginx and reload

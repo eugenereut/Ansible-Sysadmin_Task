@@ -1,0 +1,36 @@
+---
+- name: Copy civicrm.drush.inc
+  copy: src=templates/files/civicrm.drush.inc dest=~/.drush/civicrm.drush.inc mode=640
+
+- name: Drush clear-cache
+  command: drush cc drush
+
+- name: Download CiviCRM for Drupal 7
+  get_url:
+    url: "{{ civicrm_vars.civicrm_url }}"
+    dest: "{{ civicrm_vars.civicrm_destination }}"
+    owner: "root"
+    mode: "u+rwx,g+rx,o-rwx"
+
+- name: Install CiviCRM
+  command: drush civicrm-install --dbhost={{ drupal_db.host }} --dbname={{ civicrm_vars.name }} --dbuser={{ civicrm_vars.user }} --dbpass={{ civicrm_vars.password }} --destination=/sites/all/modules --tarfile={{ civicrm_vars.civicrm_destination }} --root={{ drupal_db.drupal_docroot }}
+
+- name: Delete civicrm.drush.inc from drupal instalation
+  file: path={{ drupal_db.drupal_docroot }}/sites/all/modules/civicrm/drupal/drush/civicrm.drush.inc state=absent
+
+- name: Enable CiviCRM
+  command: drush pm-enable civicrm --root={{ drupal_db.drupal_docroot }}
+
+- name: CiviCRM | Give appropriate permissions for files directory
+  file:
+    dest: "{{ drupal_db.drupal_docroot }}/sites/all/modules/civicrm"
+    recurse: yes
+    mode: a+w
+
+- name: Give ownership www-data to html
+  file:
+    path: "/var/www/html"
+    recurse: yes
+    owner: www-data
+    group: www-data
+  notify: "restart {{ drupal_db.webserver }}"

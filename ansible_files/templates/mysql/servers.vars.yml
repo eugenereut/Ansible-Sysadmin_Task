@@ -1,0 +1,37 @@
+servers_vars:
+    frontend_hostname: vps200756.vps.ovh.ca
+    # p7compucorp
+    # vps200756.vps.ovh.ca
+    dba_hostname: p8compucorp_db
+    admin_email: eugene.reut@gmail.com
+    # domain_ip: "10.0.3.182"
+    domain_ip: "54.39.99.152"
+
+drupal_db:
+    user: drupal_admin
+    password: "iz3eey9aadoo"
+    name: drupal-db
+    # host: 10.0.3.81:3306
+    # if DBA not dedicated
+    host: 127.0.0.1:3306
+    mysql_root_home: /root
+    mysql_root_username: "root"
+    mysql_root_password: "axoxox7fog7o"
+    # drush_version: "8.1.17"
+    drush_phar_url: "https://github.com/drush-ops/drush/releases/download/8.1.17/drush.phar"
+    drupal_zip: "https://ftp.drupal.org/files/projects/drupal-7.59.zip"
+    drupal_destination: "~/drupal.zip"
+    drupal_unzipdocroot: "/var/www/html"
+    drupal_branch: "7.x"
+    drupal_docroot: "/var/www/html/drupal"
+    webserver: "nginx"
+    drupal_site_name: "Compucorp Sysadmin Tasks v2.0"
+    drupal_account_name: "admin_compucorp"
+    drupal_account_pass: "kitazisoo7ce"
+
+civicrm_vars:
+    user: civicrm_admin
+    password: "iz3eey9aadoo"
+    name: civicrm-db
+    civicrm_url: "https://download.civicrm.org/civicrm-5.4.0-drupal.tar.gz"
+    civicrm_destination: "~/civiCRM.tar.gz"

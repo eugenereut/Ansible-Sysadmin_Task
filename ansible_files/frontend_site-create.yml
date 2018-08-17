@@ -1,0 +1,19 @@
+---
+- name: Let's Encrypt certbot and Nginx SSL Site Create
+  hosts: remote_web
+  become: yes
+
+  vars_files:
+      - templates/mysql/servers.vars.yml
+
+  tasks:
+      # tasks for development site with Self signed SSL cert
+      #- include: tasks/letsencrypt-development.yml
+      #- include: tasks/le_nginx-config-production.yml
+
+      # tasks for production site with SSL Let's Encrypt certbot
+      - include: tasks/letsencrypt-production.yml
+      - include: tasks/le_nginx-config-production.yml
+
+  handlers:
+      - include: handlers.yml

@@ -1,0 +1,53 @@
+---
+#- name: Drupal | Get the latest stable version(7)
+#  git:
+#    repo: "https://github.com/drupal/drupal.git"
+#    version: "{{ drupal_db.drupal_branch }}"
+#    dest: "{{ drupal_db.drupal_docroot }}"
+#    depth: 1
+
+# Drupal unzip Install scenario
+- name: Drupal | Download Drupal 7
+  get_url:
+    url: "{{ drupal_db.drupal_zip }}"
+    dest: "{{ drupal_db.drupal_destination }}"
+    owner: "root"
+    mode: "u+rwx,g+rx,o-rwx"
+
+- name: Drupal | Unarchive the latest stable version
+  unarchive:
+      src: "{{ drupal_db.drupal_destination }}"
+      dest: "{{ drupal_db.drupal_unzipdocroot }}"
+      remote_src: yes
+
+- name: Drupal | Create drupal_docroot
+  file: path=/var/www/html/drupal state=directory
+
+- name: Drupal | Clear drupal_docroot
+  file: path=/var/www/html/drupal state=absent
+
+- name: Drupal | Move Unziped drupal-7.59 to drupal
+  command: mv /var/www/html/drupal-7.59 /var/www/html/drupal
+
+- name: Drupal | Check if site is already installed
+  command: >
+      drush status --root={{ drupal_db.drupal_docroot }}
+  register: drush_status
+
+- name: Drupal | Give appropriate permissions for files directory
+  file:
+      dest: "{{ drupal_db.drupal_docroot }}/sites/default/files"
+      recurse: yes
+      mode: a+w
+  when: not drush_status.stdout is search("Drupal bootstrap\s+:\s+Successful")
+
+- name: Drupal | Drush site install if not already installed
+  command: >
+      drush site-install standard -y
+      --site-name="{{ drupal_db.drupal_site_name }}"
+      --account-name={{ drupal_db.drupal_account_name }}
+      --account-pass={{ drupal_db.drupal_account_pass }}
+      --db-url=mysql://{{ drupal_db.user }}:{{ drupal_db.password }}@{{ drupal_db.host }}/{{ drupal_db.name }}
+      -r {{ drupal_db.drupal_docroot }}
+  when: not drush_status.stdout is search("Drupal bootstrap\s+:\s+Successful")
+  notify: "restart {{ drupal_db.webserver }}"
