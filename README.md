@@ -1,18 +1,30 @@
-# Compucorp
-The automation install Drupal 7/CiviCRM/Nginx/MySQL/PHP on server in a secure fashion with SSL certificate.
+# A new server with Drupal 7 and CiviCRM
+The automation installed Drupal 7, CiviCRM, Nginx, MySQL, PHP on server in a secure fashion with SSL certificate from https://letsencrypt.org/.
 
-# Development servers hosted at Ubuntu and LXC containers
+Tools drush, git, vim and pip are installed.
 
-# Prepare files
-ansible_files/inventory/hosts
-ansible_files/templates/mysql/servers.vars.yml
+Brief how-to
+Development servers hosted at localhost Ubuntu and LXC containers.
+Production server hosted at OVH VPS.
 
-# Prepare host
+Login to remote VPS and prepare server for deployment
 $ apt install python-simplejson
 $ apt install openssh-server
 
-sshd_config
-Port 7822
+All servers runs ssh with port 7822
+Please swap 22 to 7822 in /etc/ssh/sshd_config.
 
-# Run
-./setup.sh
+All servers has user ubuntu with sudo access.
+
+Ensure Ansible ready to go
+$ ansible HOST_GROUP -m ping
+
+Run out the setup script from your terminal
+$ ./setup.sh
+
+All credentials for Drupal in file ansible_files/templates/mysql/servers.vars.yml
+
+root access to remote VPS is blocked
+Please use this link to remote VPS
+ssh -p 7822 ubuntu@vps200756.vps.ovh.ca
+pass jaecH7ya

@@ -1,12 +1,29 @@
 ---
-#- name: Drupal | Get the latest stable version(7)
-#  git:
-#    repo: "https://github.com/drupal/drupal.git"
-#    version: "{{ drupal_db.drupal_branch }}"
-#    dest: "{{ drupal_db.drupal_docroot }}"
-#    depth: 1
+# drupal.yml - tasks Ansible
+#
+# maintained by:  Eugene Kostryuchin <eugene.kostryuchin@gmail.com>
+# Please ALWAYS copy eugene.kostryuchin@gmail.com
+# on emails.
+#
+# Copyright 2018 Eugene Kostryuchin
+#
+# This file is part of Devops/Sysadmin Task.
+#
+#    Devops/Sysadmin Task is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Devops/Sysadmin Task is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with Devops/Sysadmin Task.  If not, see <https://www.gnu.org/licenses/>.
 
 # Drupal unzip Install scenario
+# Please check all Vars in templates/mysql/servers.vars.yml
 - name: Drupal | Download Drupal 7
   get_url:
     url: "{{ drupal_db.drupal_zip }}"
@@ -41,6 +58,7 @@
       mode: a+w
   when: not drush_status.stdout is search("Drupal bootstrap\s+:\s+Successful")
 
+# Please check all Vars in templates/mysql/servers.vars.yml
 - name: Drupal | Drush site install if not already installed
   command: >
       drush site-install standard -y

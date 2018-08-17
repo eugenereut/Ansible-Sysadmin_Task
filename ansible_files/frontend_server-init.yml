@@ -1,4 +1,27 @@
 ---
+# frontend_server-init.yml - palybook Ansible
+#
+# maintained by:  Eugene Kostryuchin <eugene.kostryuchin@gmail.com>
+# Please ALWAYS copy eugene.kostryuchin@gmail.com
+# on emails.
+#
+# Copyright 2018 Eugene Kostryuchin
+#
+# This file is part of Devops/Sysadmin Task.
+#
+#    Devops/Sysadmin Task is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Devops/Sysadmin Task is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with Devops/Sysadmin Task.  If not, see <https://www.gnu.org/licenses/>.
+
 - name: Frontend Server setup
   hosts: remote_web
   become: yes
@@ -13,9 +36,10 @@
       - include: tasks/system_updates.yml
       - include: tasks/system_utilities.yml
       # uncomment fail2ban for remote VPS installs
+      # Please check ports in templates/fail2ban.conf.j2 and tasks/ufw.yml
       #- include: tasks/fail2ban.yml
       - include: tasks/ufw.yml
-      #- include: tasks/nginx.yml
+      - include: tasks/nginx.yml
       - include: tasks/php.yml
       - include: tasks/php_composer.yml
       - include: tasks/mysql_client.yml

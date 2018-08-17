@@ -30,13 +30,17 @@
   vars_files:
       - templates/mysql/servers.vars.yml
 
-  # uncomment if DBA servers dedicated
+  # uncomment if DBA servers are dedicated
   tasks:
       #- include: tasks/hostname_dba.yml
       #- include: tasks/timezone.yml
       #- include: tasks/sysctl.yml
       #- include: tasks/system_updates.yml
       #- include: tasks/system_utilities.yml
+      # Uncomment fail2ban for remote VPS installs
+      # Please check ports in templates/fail2ban.conf.j2 and tasks/ufw.yml
+      #- include: tasks/fail2ban.yml
+      #- include: tasks/ufw.yml
       - include: tasks/mysql.yml
 
 

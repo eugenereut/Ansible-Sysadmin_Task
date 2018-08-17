@@ -1,22 +1,48 @@
 ---
-# Certbot Install and
-# Certbot Auto-Renewal
+# letsencrypt-production.yml - tasks Ansible
+#
+# maintained by:  Eugene Kostryuchin <eugene.kostryuchin@gmail.com>
+# Please ALWAYS copy eugene.kostryuchin@gmail.com
+# on emails.
+#
+# Copyright 2018 Eugene Kostryuchin
+#
+# This file is part of Devops/Sysadmin Task.
+#
+#    Devops/Sysadmin Task is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Devops/Sysadmin Task is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with Devops/Sysadmin Task.  If not, see <https://www.gnu.org/licenses/>.
+
+# Run this script if webserver is production
+# file uncomment in playbook: frontend_site-create.yml
+
+# Script do Certbot install and
+# How-To Certbot Auto-Renewal
 # The certbot package takes care of Auto-Renewal by running ‘certbot renew’ twice a day via a systemd timer.
 # On non-systemd distributions this functionality is provided by a script placed in /etc/cron.d.
 # See /etc/cron.d
-- name: Install packages
+- name: Install software-properties-common Packages
   apt:
     name: "{{ item }}"
     state: present
   with_items:
       - software-properties-common
 
-- name: Add certbot repository
+- name: Add Certbot repository
   apt_repository:
       repo: 'ppa:certbot/certbot'
       update_cache: true
 
-- name: Install packages
+- name: Install python-certbot-nginx packages
   apt:
     name: "{{ item }}"
     state: present
@@ -25,6 +51,6 @@
 
 # https://weakdh.org/  creates=/etc/ssl/certs/dhparam.pem
 # dhparam.pem managed by Certbot now
-# If domain has www NS record please also add: -d www.domain.com
-- name: Generate dhparams file
+# If domain has www NS record please also add to command: -d www.domain.com
+- name: Generate Lets Encrypt certificates
   command: certbot -n --agree-tos -m {{ servers_vars.admin_email }} --nginx -d {{ servers_vars.frontend_hostname }}

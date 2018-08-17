@@ -1,5 +1,28 @@
 ---
-# grant SELECT access for the CiviCRM adm user to all the CiviCRM tables
+# user-civicrm_mysql.yml - tasks Ansible
+#
+# maintained by:  Eugene Kostryuchin <eugene.kostryuchin@gmail.com>
+# Please ALWAYS copy eugene.kostryuchin@gmail.com
+# on emails.
+#
+# Copyright 2018 Eugene Kostryuchin
+#
+# This file is part of Devops/Sysadmin Task.
+#
+#    Devops/Sysadmin Task is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Devops/Sysadmin Task is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with Devops/Sysadmin Task.  If not, see <https://www.gnu.org/licenses/>.
+
+# grant USAGE access for the CiviCRM adm user to all the CiviCRM tables
 - name: CiviCRM MySQL | Ensure MySQL users are present
   mysql_user:
       name: "{{ civicrm_vars.user }}"

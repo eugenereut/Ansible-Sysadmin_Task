@@ -1,10 +1,34 @@
 ---
+# civicrm.yml - tasks Ansible
+#
+# maintained by:  Eugene Kostryuchin <eugene.kostryuchin@gmail.com>
+# Please ALWAYS copy eugene.kostryuchin@gmail.com
+# on emails.
+#
+# Copyright 2018 Eugene Kostryuchin
+#
+# This file is part of Devops/Sysadmin Task.
+#
+#    Devops/Sysadmin Task is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Devops/Sysadmin Task is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with Devops/Sysadmin Task.  If not, see <https://www.gnu.org/licenses/>.
+
 - name: Copy civicrm.drush.inc
   copy: src=templates/files/civicrm.drush.inc dest=~/.drush/civicrm.drush.inc mode=640
 
 - name: Drush clear-cache
   command: drush cc drush
 
+# Please check all Vars in templates/mysql/servers.vars.yml
 - name: Download CiviCRM for Drupal 7
   get_url:
     url: "{{ civicrm_vars.civicrm_url }}"
@@ -12,6 +36,7 @@
     owner: "root"
     mode: "u+rwx,g+rx,o-rwx"
 
+# Please check all Vars in templates/mysql/servers.vars.yml
 - name: Install CiviCRM
   command: drush civicrm-install --dbhost={{ drupal_db.host }} --dbname={{ civicrm_vars.name }} --dbuser={{ civicrm_vars.user }} --dbpass={{ civicrm_vars.password }} --destination=/sites/all/modules --tarfile={{ civicrm_vars.civicrm_destination }} --root={{ drupal_db.drupal_docroot }}
 
