@@ -49,7 +49,7 @@
       common_name: "{{ servers_vars.frontend_hostname }}"
 
 # provider: selfsigned
-- name: Generate a Self Signed OpenSSL certificate or Let's Encrypt Certificates.
+- name: Generate a Self Signed OpenSSL certificate.
   openssl_certificate:
       path: /etc/letsencrypt/live/{{ servers_vars.frontend_hostname }}/fullchain.pem
       privatekey_path: /etc/letsencrypt/live/{{ servers_vars.frontend_hostname }}/privkey.pem

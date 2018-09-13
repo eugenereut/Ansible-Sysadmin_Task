@@ -49,8 +49,18 @@
   with_items:
       - python-certbot-nginx
 
+# Swap default server name at nginx sites-available for right respond to Certbot
+- name: Swap default server name at nginx sites-available
+  replace:
+      path: /etc/nginx/sites-available/default
+      regexp: 'server_name(\s+.*)?$'
+      replace: 'server_name {{ servers_vars.frontend_hostname }};'
+      backup: yes
+  notify:
+      -  test nginx and reload
+
 # https://weakdh.org/  creates=/etc/ssl/certs/dhparam.pem
 # dhparam.pem managed by Certbot now
-# If domain has www NS record please also add to command: -d www.domain.com
+# If domain has www 'NS record' please add to command: -d www.domain.com
 - name: Generate Lets Encrypt certificates
   command: certbot -n --agree-tos -m {{ servers_vars.admin_email }} --nginx -d {{ servers_vars.frontend_hostname }}

@@ -1,19 +1,20 @@
 servers_vars:
-    frontend_hostname: vps200756.vps.ovh.ca
+    frontend_hostname: p7compucorp
     # p7compucorp
-    # vps200756.vps.ovh.ca
+    # vps
     dba_hostname: p8compucorp_db
     admin_email: eugene.reut@gmail.com
-    # domain_ip: "10.0.3.182"
-    domain_ip: "54.39.99.152"
+    # localhost
+    domain_ip: "10.0.3.182"
+    # domain_ip: "vps"
 
 drupal_db:
     user: drupal_admin
     password: "iz3eey9aadoo"
     name: drupal-db
-    # host: 10.0.3.81:3306
+    host: 10.0.3.81:3306
     # if DBA not dedicated
-    host: 127.0.0.1:3306
+    # host: 127.0.0.1:3306
     mysql_root_home: /root
     mysql_root_username: "root"
     mysql_root_password: "axoxox7fog7o"
@@ -25,7 +26,7 @@ drupal_db:
     drupal_branch: "7.x"
     drupal_docroot: "/var/www/html/drupal"
     webserver: "nginx"
-    drupal_site_name: "Compucorp Sysadmin Tasks v2.0"
+    drupal_site_name: "Sysadmin Tasks v2.0"
     drupal_account_name: "admin_compucorp"
     drupal_account_pass: "kitazisoo7ce"
 

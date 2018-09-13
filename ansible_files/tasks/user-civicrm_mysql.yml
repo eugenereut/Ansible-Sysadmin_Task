@@ -31,3 +31,13 @@
       password: "{{ civicrm_vars.password }}"
       priv: "{{ civicrm_vars.name }}.*:ALL"
       state: present
+
+# grant USAGE access for the CiviCRM admin user to all the Drupal tables
+#- name: Ensure CiviCRM admin for Drupal tables are present
+#  mysql_user:
+#      name: "{{ civicrm_vars.user }}"
+#      append_privs: true
+#      host: "%"
+#      password: "{{ civicrm_vars.password }}"
+#      priv: "{{ drupal_db.name }}.*:ALL"
+#      state: present

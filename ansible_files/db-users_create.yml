@@ -23,7 +23,7 @@
 #    along with Devops/Sysadmin Task.  If not, see <https://www.gnu.org/licenses/>.
 
 - name: Create DB names and Admin users Drupal and CiviCRM
-  hosts: remote_db-drupal
+  hosts: local_db-drupal
   become: yes
 
   vars_files:
