@@ -22,11 +22,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Devops/Sysadmin Task.  If not, see <https://www.gnu.org/licenses/>.
 
-play1="frontend_server-init.yml"
-play2="db_server-init.yml"
-play3="db-users_create.yml"
-play4="drupal-civicrm_init.yml"
-play5="frontend_site-create.yml"
+play1="ansible_files/frontend_server-init.yml"
+play2="ansible_files/db_server-init.yml"
+play3="ansible_files/db-users_create.yml"
+play4="ansible_files/drupal-civicrm_init.yml"
+play5="ansible_files/frontend_site-create.yml"
 
 for i in $play1 $play2 $play3 $play4 $play5
 do
