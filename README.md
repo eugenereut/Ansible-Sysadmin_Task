@@ -1,5 +1,6 @@
+# Ansible scripts are creating a new server with Drupal7 and CiviCRM.
+
 # Devops/Sysadmin Task
-Ansible scripts are creating a new server with Drupal7 and CiviCRM.
 
 The automation install Drupal7 and CiviCRM on server in a secure fashion with SSL certificate from https://letsencrypt.org/.
 CiviCRM and Drupal in different databases as this is considered best practice.
