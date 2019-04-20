@@ -1,7 +1,5 @@
 # Ansible scripts are creating a new server with Drupal7 and CiviCRM.
 
-# Devops/Sysadmin Task
-
 The automation install Drupal7 and CiviCRM on server in a secure fashion with SSL certificate from https://letsencrypt.org/.
 CiviCRM and Drupal in different databases as this is considered best practice.
 
@@ -13,5 +11,4 @@ The Drupal settings files modified so that Drupal views can use the CiviCRM data
 
 The playbooks are tested in Ubuntu 18.04.
 
-The setup script was prepared for run a playbooks from terminal.
-$ ./setup.sh
+The setup script run a playbooks from terminal: ./setup.sh
