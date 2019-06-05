@@ -1,11 +1,11 @@
 #!/bin/bash
 # setup.sh - bash script runs Ansible playbooks
 #
-# maintained by:  Eugene Kostryuchin <eugene.kostryuchin@gmail.com>
-# Please ALWAYS copy eugene.kostryuchin@gmail.com
+# maintained by:  Eugene Reut <eugene.reut@gmail.com>
+# Please ALWAYS copy eugene.reut@gmail.com
 # on emails.
 #
-# Copyright 2018 Eugene Kostryuchin
+# Copyright 2018 Eugene Reut
 #
 # This file is part of Devops/Sysadmin Task.
 #
