@@ -1,6 +1,0 @@
-*.yml text
-*.cfg text
-*.config text
-*.conf text
-
-* text=auto
